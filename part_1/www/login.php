@@ -15,10 +15,20 @@ $username = $_REQUEST['username'];
 $password = $_REQUEST['password'];
 $hostname = $_SERVER['HTTP_HOST'];
 $sql = "SELECT * FROM " . $htbconf['db/users'] . " where " . $htbconf['db/users.username'] . "='$username' and " . $htbconf['db/users.password'] . "='$password'";
+
+
+$db = DB::connect("mariadb://root:@localhost/vbank");
+
+$stmt = db::con()->prepare("SELECT * FROM " . $htbconf['db/users'] . " WHERE " . $htbconf['db/users.username'] . "=:username AND " . $htbconf['db/users.password'] . "=:password");
+$stmt->bindValue(':username', $username, PDO::PARAM_STR);
+$stmt->bindValue(':password', $password, PDO::PARAM_STR);
+$stmt->execute();
+$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 // die($sql);
 // var_dump($sql);
 $_SESSION['loggedin'] = false;
-if ($link->multi_query($sql)) {
+if ($link->multi_query($stmt)) {
 	if ($result = $link->store_result()) {
 		$row = $result->fetch_row();
 		if ($row) {
