@@ -95,7 +95,7 @@ $htbconf['db/users.lasttime']	= 'lasttime';
 $htbconf['db/users.lastip']		= 'lastip';
 
 // Application account for access to database
-$htbconf['db/.server']	= 'http://localhost:8000';
+$htbconf['db/.server']	= 'mariadb';
 $htbconf['db/.login']	= 'root';
 $htbconf['db/.pwd']		= '';
 $htbconf['db/.name']	= 'vbank';

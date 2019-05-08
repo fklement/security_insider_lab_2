@@ -1,5 +1,5 @@
 <?php
-ini_set("include_path", ".:../etc/:../pages/");
+ini_set("include_path", ".:etc/:pages/");
 
 include_once ("htb.inc");
 include_once ("config.php");
