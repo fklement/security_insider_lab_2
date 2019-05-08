@@ -40,7 +40,7 @@ if (isset($_REQUEST) && is_array($_REQUEST)) {
 }
 global $db_link, $htbconf;
 // try to connect to database
-$db_link = mysql_connect($htbconf['db/.server'], $htbconf['db/.login'], $htbconf['db/.pwd']);
+$db_link = mysqli_connect($htbconf['db/.server'], $htbconf['db/.login'], $htbconf['db/.pwd']);
 $preventLogin = false;
 // Could not connect to mysql server
 if (!$db_link) {
