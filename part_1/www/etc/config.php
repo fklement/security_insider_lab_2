@@ -95,9 +95,9 @@ $htbconf['db/users.lasttime']	= 'lasttime';
 $htbconf['db/users.lastip']		= 'lastip';
 
 // Application account for access to database
-$htbconf['db/.server']	= 'db';
-$htbconf['db/.login']	= 'user';
-$htbconf['db/.pwd']		= 'test';
+$htbconf['db/.server']	= 'http://localhost:8000';
+$htbconf['db/.login']	= 'root';
+$htbconf['db/.pwd']		= '';
 $htbconf['db/.name']	= 'vbank';
 
 date_default_timezone_set('Europe/Berlin');

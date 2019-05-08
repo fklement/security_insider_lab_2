@@ -6,35 +6,28 @@ services:
             - "8001:80"
         volumes:
             - ./www:/var/www/html/
-        links:
-            - db
+        depends_on:
+            - mariadb
         networks:
             - default
-    db:
-        image: mysql:8.0
-        ports: 
-            - "3306:3306"
-        command: --default-authentication-plugin=mysql_native_password
+    mariadb:
+        image: 'bitnami/mariadb:latest'
         environment:
-            MYSQL_DATABASE: vbank
-            MYSQL_USER: user
-            MYSQL_PASSWORD: test
-            MYSQL_ROOT_PASSWORD: aaa 
+        - ALLOW_EMPTY_PASSWORD=yes
         volumes:
-            - ./dump:/docker-entrypoint-initdb.d
-            - ./conf:/etc/mysql/conf.d
-            - persistent:/var/lib/mysql
-        networks:
-            - default
+        - mariadb_data:/bitnami
     phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        links: 
-            - db:db
+        image: bitnami/phpmyadmin:latest
+        depends_on:
+        - mariadb
         ports:
-            - 8000:80
-        environment:
-            MYSQL_USER: user
-            MYSQL_PASSWORD: test
-            MYSQL_ROOT_PASSWORD: test 
+        - '80:80'
+        - '443:443'
+        volumes:
+        - phpmyadmin_data:/bitnami
+
 volumes:
-    persistent:
+  mariadb_data:
+    driver: local
+  phpmyadmin_data:
+    driver: local
