@@ -40,7 +40,7 @@ if (isset($_REQUEST) && is_array($_REQUEST)) {
 }
 global $db_link, $htbconf;
 // try to connect to database
-$db_link = mysqli_connect($htbconf['db/.server'], $htbconf['db/.login'], $htbconf['db/.pwd']);
+$db_link = mysql_connect($htbconf['db/.server'], $htbconf['db/.login'], $htbconf['db/.pwd']);
 
 
 $preventLogin = false;
@@ -51,7 +51,7 @@ if (!$db_link) {
 	$preventLogin = true;
 }
 // select the DB this bank is using
-if ($db_link && !mysqli_select_db($db_link, $htbconf['db/.name'])) {
+if ($db_link && !mysql_select_db($htbconf['db/.name'], $db_link)) {
 	$_SESSION['error'] = '<p>Due to maintenance work, the online banking service is currently not available.22222</p><p>We apolgize for this inconvenienceaa!</p>';
 	$preventLogin = true;
 }
