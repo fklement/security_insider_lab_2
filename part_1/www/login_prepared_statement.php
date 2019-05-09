@@ -1,5 +1,5 @@
 <?php
-ini_set("include_path", ".:../etc/:../pages/");
+ini_set("include_path", ".:etc/:pages/");
 
 include_once ("htb.inc");
 include_once ("config.php");
@@ -15,11 +15,17 @@ $username = $_REQUEST['username'];
 $password = $_REQUEST['password'];
 $hostname = $_SERVER['HTTP_HOST'];
 $sql = "SELECT * FROM " . $htbconf['db/users'] . " where " . $htbconf['db/users.username'] . "='$username' and " . $htbconf['db/users.password'] . "='$password'";
-// die($sql);
-// var_dump($sql);
+
+// Prepares the SQL statement for execution
+$stmt = $link->prepare("SELECT * FROM " . $htbconf['db/users'] . " WHERE " . $htbconf['db/users.username'] . "= ? AND " . $htbconf['db/users.password'] . "= ?");
+// Binds the username and the password to the prepared statement as string parameters
+$stmt->bind_param('ss', $username, $password);
+
 $_SESSION['loggedin'] = false;
-if ($link->multi_query($sql)) {
-	if ($result = $link->store_result()) {
+// Executes the SQL statement
+if ($stmt->execute()) {
+	// Gets the result set from the prepared statement
+	if ($result = $stmt->get_result()) {
 		$row = $result->fetch_row();
 		if ($row) {
 			$_SESSION['loggedin'] = true;
@@ -31,7 +37,7 @@ if ($link->multi_query($sql)) {
 			$_SESSION['lastlogin'] = strtotime($row[6]);
 			$_SESSION['lastloginip'] = $row[7];
 			$sql = "UPDATE " . $htbconf['db/users'] . " set " . $htbconf['db/users.lasttime'] . "=now(), " . $htbconf['db/users.lastip'] . "='" . $_SERVER['REMOTE_ADDR'] . "' where " . $htbconf['db/users.username'] . "='$username' and " . $htbconf['db/users.password'] . "='$password'";
-			if (!$link->multi_query($sql)) $_SESSION['warning'].= "<p>Unable to update login time and login ip.</p><p>Please report this to your system administrator.</p>";
+			if (!$stmt->execute()) $_SESSION['warning'].= "<p>Unable to update login time and login ip.</p><p>Please report this to your system administrator.</p>";
 			htb_redirect(htb_pageurl("htbmain"));
 		} else {
 			$_SESSION['error'].= "<p>Your password or username is wrong!</p>";
