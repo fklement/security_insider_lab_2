@@ -27,17 +27,17 @@ $_SESSION['loggedin'] = false;
 if ($stmt->execute()) {
 	// Gets the result set from the prepared statement
 	if ($result = $stmt->get_result()) {
-		$row = $result->fetch_row();
+		$row = $result->fetch_row(PDO::FETCH_ASSOC);
 		if ($row) {
 			$_SESSION['loggedin'] = true;
 			$_SESSION['userid'] = $row[0];
-			$_SESSION['user'] = $row[2];
+			$_SESSION['user'] = $row['username'];
 			$_SESSION['name'] = $row[3];
 			$_SESSION['firstname'] = $row[4];
 			$_SESSION['time'] = strtotime($row[5]);
 			$_SESSION['lastlogin'] = strtotime($row[6]);
 			$_SESSION['lastloginip'] = $row[7];
-			
+
 			// Prepares the SQL statement for execution
 			$stmt = $link->prepare("UPDATE " . $htbconf['db/users'] . " set " . $htbconf['db/users.lasttime'] . "=now(), " . $htbconf['db/users.lastip'] . "='" . $_SERVER['REMOTE_ADDR'] . "' where " . $htbconf['db/users.username'] . "=? and " . $htbconf['db/users.password'] . "=?");
 			// Binds the username and the password to the prepared statement as string parameters
