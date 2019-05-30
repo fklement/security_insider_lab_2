@@ -1,4 +1,4 @@
-# Dog the pug
+# Doug the pug
 
 This is a simple web application for session hijacking.
 
