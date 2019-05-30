@@ -22,7 +22,8 @@
 		htb_redirect(htb_getbaseurl().'index.php?page=htbloanreq');
 		exit;
 				}
-	
+
+
 	if(isset($http['submit']) && $http['submit'] == "Confirm") {
 		$sql="update ".$htbconf['db/accounts']." set ".$htbconf['db/accounts.curbal']."=".$htbconf['db/accounts.curbal']." + \"".($http['loan'])."\", ".$htbconf['db/accounts.time']."=now() where ".$htbconf['db/accounts.account']."=\"".($http['creditacc'] ^ $xorValue)."\"";
 		mysql_query($sql, $db_link);

@@ -1,0 +1,17 @@
+html
+    head
+        title!=title
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+
+    body
+
+        <div class="container">
+            h1=message
+            p= "Here is a list of hijacked session cookies of the vulnerable bank application: "
+
+            ul
+            each entry in cookies
+                li= 'IP: ' + entry.ip  + ' | COOKIE: ' + entry.cookie
+
+        </div>
