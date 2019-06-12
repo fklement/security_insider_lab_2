@@ -4,7 +4,7 @@ ini_set("include_path", ".:etc/:pages/");
 include_once ("htb.inc");
 include_once ("config.php");
 
-session_set_cookie_params($htbconf['bank/cookievalidity']);
+session_set_cookie_params($htbconf['bank/cookievalidity'], '/', 'localhost', true, true); 
 session_name($htbconf['bank/sid']);
 session_start();
 
