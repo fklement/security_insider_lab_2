@@ -14,8 +14,9 @@ include ("config.php");
 // load basic functions
 require ('htb.inc');
 // set session parameteres and init it
-session_set_cookie_params($htbconf['bank/cookievalidity']);
+//session_set_cookie_params($htbconf['bank/cookievalidity']);
 session_name($htbconf['bank/sid']);
+session_set_cookie_params($htbconf['bank/cookievalidity'], '/', 'localhost', false, true); 
 session_start();
 // start output buffering
 ob_start();
