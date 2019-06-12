@@ -22,6 +22,8 @@ int main() {
 	// read some input
 	readInput(buffer);
 
+	
+	printf("pivot: %8p\n", (void*)&pivot);
 	// test for pivot element
 	if (pivot == 0x10204030)  printf("Congratulations! You win!\n");
 
