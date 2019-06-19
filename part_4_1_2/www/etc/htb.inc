@@ -1,6 +1,5 @@
 <?php
 $hostname = $_SERVER['HTTP_HOST'];
-$path = dirname($_SERVER['PHP_SELF']);
 if (!isset($_SESSION['success'])) $_SESSION['success'] = "";
 if (!isset($_SESSION['warning'])) $_SESSION['warning'] = "";
 if (!isset($_SESSION['error'])) $_SESSION['error'] = "";
