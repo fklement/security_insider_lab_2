@@ -15,9 +15,10 @@
 		<td>
 			<?php
 				global $htbconf;
+				$address = mysqli_real_escape_string($_SERVER('REMOTE_ADDR'));
 				print "<p>Welcome <b>".$_SESSION['firstname']." ".$_SESSION['name']."!</b></p>\n";
 				print "<p>We are happy to see you again! You are a customer of our bank since ".date("Y-m-d", $_SESSION['time']).".</p><br>\n";
-				print "<p>You are logged in as <b>".$_SESSION['user']."</b> from <b>".$_SERVER['REMOTE_ADDR']."</b></p>\n";
+				print "<p>You are logged in as <b>".$_SESSION['user']."</b> from <b>".$address."</b></p>\n";
 				print "<p>For security reasons please make sure that your last login was on <b>".date("l, F d, Y, h:ia", $_SESSION['lastlogin'])."</b> from <b>".$_SESSION['lastloginip']."</b>.</p><br>\n";
 				print "<p>Please contact us if you experience any problems with our online banking application.</p><br>\n";
 				print "<p>We wish you a nice day!</p><br>";
