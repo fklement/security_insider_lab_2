@@ -11,11 +11,11 @@ services:
         networks:
             - default
     mariadb:
-        image: 'bitnami/mariadb:latest'
+        image: 'bitnami/mariadb:10.1'
         environment:
         - ALLOW_EMPTY_PASSWORD=yes
         volumes:
-        - mariadb_data:/bitnami
+        - ./www:/var/www/html/
     phpmyadmin:
         image: bitnami/phpmyadmin:latest
         depends_on:
