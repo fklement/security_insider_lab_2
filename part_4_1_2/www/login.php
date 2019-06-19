@@ -1,5 +1,5 @@
 <?php
-ini_set("include_path", ".:etc/:pages/");
+ini_set("include_path", ".:../etc/:../pages/");
 
 include_once ("htb.inc");
 include_once ("config.php");
@@ -11,8 +11,8 @@ session_start();
 set_error_handler('errorHandler');
 $link = new mysqli($htbconf['db/.server'], $htbconf['db/.login'], $htbconf['db/.pwd'], $htbconf['db/.name']) or die('Error connecting to database');
 
-$username = $_REQUEST['username'];
-$password = $_REQUEST['password'];
+$username = mysqli_real_escape_string($link, $_REQUEST['username']);
+$password = mysqli_real_escape_string($link, $_REQUEST['password']);
 $hostname = $_SERVER['HTTP_HOST'];
 $sql = "SELECT * FROM " . $htbconf['db/users'] . " where " . $htbconf['db/users.username'] . "='$username' and " . $htbconf['db/users.password'] . "='$password'";
 // die($sql);
