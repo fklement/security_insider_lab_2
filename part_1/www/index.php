@@ -16,7 +16,8 @@ require ('htb.inc');
 // set session parameteres and init it
 //session_set_cookie_params($htbconf['bank/cookievalidity']);
 session_name($htbconf['bank/sid']);
-session_set_cookie_params($htbconf['bank/cookievalidity'], '/', 'localhost', false, true); 
+session_set_cookie_params($htbconf['bank/cookievalidity'], '/', 'localhost', false, false); 
+session_set_cookie_params($htbconf['bank/cookievalidity'], '/', '127.0.0.1', false, false); 
 session_start();
 // start output buffering
 ob_start();

