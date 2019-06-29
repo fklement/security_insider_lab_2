@@ -1,0 +1,41 @@
+0804887c <main>:
+ 804887c:	55                   	push   %ebp
+ 804887d:	89 e5                	mov    %esp,%ebp
+ 804887f:	83 ec 08             	sub    $0x8,%esp
+ 8048882:	c7 45 f8 68 bb 0b 08 	movl   $0x80bbb68,-0x8(%ebp) // copies address of "bin/sh" to memory
+ 8048889:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%ebp) // copies the NULL value to the adjacent memory location
+ 8048890:	8b 45 f8             	mov    -0x8(%ebp),%eax // copies the address of "bin/sh" to the eax register from memory
+ 8048893:	6a 00                	push   $0x0 //parameters are pushed to the stack in reverse order starting from NULL
+ 8048895:	8d 55 f8             	lea    -0x8(%ebp),%edx // argv parameter first copied to the edx register and then pushed onto the stack
+ 8048898:	52                   	push   %edx
+ 8048899:	50                   	push   %eax // address of "bin/"sh" pushed onto the stack
+ 804889a:	e8 41 42 02 00       	call   806cae0 <__execve> //call of execve 
+ 804889f:	83 c4 0c             	add    $0xc,%esp
+ 80488a2:	b8 00 00 00 00       	mov    $0x0,%eax
+ 80488a7:	c9                   	leave  
+ 80488a8:	c3                   	ret    
+ 80488a9:	66 90                	xchg   %ax,%ax
+ 80488ab:	66 90                	xchg   %ax,%ax
+ 80488ad:	66 90                	xchg   %ax,%ax
+ 80488af:	90                   	nop
+
+
+0806cae0 <__execve>:
+ 806cae0:       53                      push   %ebx
+ 806cae1:       8b 54 24 10             mov    0x10(%esp),%edx //load NULL to edx
+ 806cae5:       8b 4c 24 0c             mov    0xc(%esp),%ecx //load address of getShell[] to ecx
+ 806cae9:       8b 5c 24 08             mov    0x8(%esp),%ebx //load address of "/bin/sh" into ebx
+ 806caed:       b8 0b 00 00 00          mov    $0xb,%eax //places syscall number of execve (oxb) into eax
+ 806caf2:       ff 15 f0 b9 0e 08       call   *0x80eb9f0 //system interrup //system interrupt
+ 806caf8:       5b                      pop    %ebx
+ 806caf9:       3d 01 f0 ff ff          cmp    $0xfffff001,%eax
+ 806cafe:       0f 83 cc 40 00 00       jae    8070bd0 <__syscall_error>
+ 806cb04:       c3                      ret
+ 806cb05:       66 90                   xchg   %ax,%ax
+ 806cb07:       66 90                   xchg   %ax,%ax
+ 806cb09:       66 90                   xchg   %ax,%ax
+ 806cb0b:       66 90                   xchg   %ax,%ax
+ 806cb0d:       66 90                   xchg   %ax,%ax
+ 806cb0f:       90                      nop
+
+
